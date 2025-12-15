@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+
+    <!----======== CSS ======== -->
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    overflow: hidden;
+}
+.hero {
+  position: relative;
+  height: 100vh;
+  background: url("your-image.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typewriter {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3.4rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #e6c17a;
+
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .typewriter {
+    font-size: 2rem;
+  }
+}
+
+
+    </style>
+    <!--<title>Typing Text Animation</title>-->
+</head>
+<body>
+    <div class="hero">
+  <div class="typewriter">
+    <span id="type-text"></span>
+    <span class="cursor">|</span>
+  </div>
+</div>
+
+    <script>
+  const texts = [
+    "Cổng thông tin quản lý thư viện",
+    "Nơi lưu giữ và lan tỏa tri thức",
+    "Mỗi cuốn sách – Một hành trình",
+    "Khám phá thế giới qua từng trang sách"
+  ];
+
+  const textElement = document.getElementById("type-text");
+
+  let textIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  const typingSpeed = 90;
+  const deletingSpeed = 45;
+  const holdAfterTyping = 1600;
+  const holdAfterDeleting = 400;
+
+  function typeWriter() {
+    const currentText = texts[textIndex];
+
+    if (!isDeleting) {
+      // Gõ chữ
+      textElement.textContent = currentText.substring(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === currentText.length) {
+        setTimeout(() => isDeleting = true, holdAfterTyping);
+      }
+    } else {
+      // Xoá chữ
+      textElement.textContent = currentText.substring(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        setTimeout(() => {}, holdAfterDeleting);
+      }
+    }
+
+    setTimeout(typeWriter, isDeleting ? deletingSpeed : typingSpeed);
+  }
+
+  typeWriter();
+</script>
+
+   
+</body>
+</html>
